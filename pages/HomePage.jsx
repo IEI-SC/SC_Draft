@@ -179,7 +179,7 @@ const HomePage = () => {
         <div className="grid md:grid-cols gap-16 items-center">
           
             <h2 className="text-4xl font-bold text-white mb-6 bg-gradient-to-r from-blue-500 to-white bg-clip-text text-transparent">
-              The IT Department
+              The Department of Information Technology
             </h2>
             <p className="text-xl text-blue-400 italic mt-2 mb-6 font-light">
               "Legacy of Excellence, Vision for Tomorrow."
@@ -204,7 +204,7 @@ const HomePage = () => {
       {/* Areas of Focus Section */}
       <section className="animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
         <h2 className="text-4xl font-bold text-white mb-12 text-center bg-gradient-to-r from-blue-500 to-white bg-clip-text text-transparent">
-          MOTIVE OF IE(I) SC TO FOCUS ON
+          The vast focus fields where IE(I) Student Chapter creates  uniqueness and difference.
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {[
