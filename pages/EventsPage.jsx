@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'hhttps://iei-sc-rcciit.onrender.com/';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://ieisc-rcciit.onrender.com';
 
 // EventCard component
 const EventCard = ({ event }) => {
