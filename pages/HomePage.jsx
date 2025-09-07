@@ -197,7 +197,7 @@ const HomePage = () => {
                 <div className="text-sm text-gray-400">Successful Alumni</div>
               </div>
             </div>
-          </div>
+          
         </div>
       </section>
 
