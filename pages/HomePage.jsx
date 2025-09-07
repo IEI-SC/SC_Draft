@@ -8,11 +8,15 @@ const HomePage = () => {
   const [isDeptLogoActive, setIsDeptLogoActive] = useState(false);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  // Using reliable image URLs
   const campusImageUrl = "https://rcciit.edu.in/uploads/home_about/1755170374_aboutbg.jpg";
   const logoImageUrl = "https://upload.wikimedia.org/wikipedia/commons/a/ab/Regional_Computer_Centre_Institute_Of_Information_Technology.png";
-  const deptlogourl = "https://drive.google.com/file/d/19BEUbTfSf2iep12pzF3zJOExD1X2H-Yh/view?usp=drive_link";
-  const deptpicurl = "https://drive.google.com/file/d/1tuVP4c61Jx6tl2SQU63Exndouf4TsoN4/view?usp=drive_link";
+  
+  // Using placeholder images instead of potentially missing local files
+  const deptlogourl = "https://via.placeholder.com/400x200/1e40af/ffffff?text=IT+Department+Logo";
+  const deptpicurl = "https://via.placeholder.com/600x400/1e40af/ffffff?text=IT+Department";
 
   useEffect(() => {
     fetchUpcomingEvents();
@@ -21,30 +25,59 @@ const HomePage = () => {
   const fetchUpcomingEvents = async () => {
     try {
       setLoading(true);
+      setError(null);
       const response = await fetch(`${API_BASE_URL}/api/events/?past=false`);
-      if (response.ok) {
-        const events = await response.json();
-        setUpcomingEvents(events.slice(0, 3)); // Show only first 3 events
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
+      
+      const events = await response.json();
+      setUpcomingEvents(events.slice(0, 3)); // Show only first 3 events
     } catch (error) {
       console.error('Error fetching events:', error);
+      setError('Failed to load events. Please try again later.');
+      // Set some demo events for UI purposes
+      setUpcomingEvents([
+        {
+          id: 1,
+          title: "Tech Workshop on AI",
+          date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+          event_type: "Workshop"
+        },
+        {
+          id: 2,
+          title: "Annual Coding Competition",
+          date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
+          event_type: "Competition"
+        }
+      ]);
     } finally {
       setLoading(false);
     }
   };
 
-  // Format date function
+  // Format date function with better error handling
   const formatDate = (dateString) => {
     try {
       const date = new Date(dateString);
+      if (isNaN(date.getTime())) {
+        return "Date TBA";
+      }
       return date.toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'short',
         day: 'numeric'
       });
     } catch (error) {
-      return dateString;
+      return "Date TBA";
     }
+  };
+
+  // Handle image errors
+  const handleImageError = (e) => {
+    e.target.src = "https://via.placeholder.com/400x200/374151/ffffff?text=Image+Not+Found";
+    e.target.onerror = null; // Prevent infinite loop
   };
 
   return (
@@ -55,18 +88,17 @@ const HomePage = () => {
         <div className="relative z-10 p-8 flex flex-col items-center">
           <div className="my-6 bg-white p-3 rounded-lg shadow-2xl transform hover:scale-105 transition-transform duration-300">
             <img
-              src="https://upload.wikimedia.org/wikipedia/en/thumb/f/ff/Institution_of_Engineers_%28India%29_Logo.svg/375px-Institution_of_Engineers_%28India%29_Logo.svg.png"
+              src="https://www.ieindia.org/Image/iei_Logo.jpg"
               alt="The Institution of Engineers (India) Logo"
               className="h-28 w-auto object-contain"
+              onError={handleImageError}
             />
           </div>
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-4 bg-gradient-to-r from-brand-primary to-cyan-400 bg-clip-text text-transparent">
             The Institution of Engineers (India) 
-                      
           </h1>
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-4 bg-gradient-to-r from-brand-primary to-cyan-400 bg-clip-text text-transparent">
             Student Chapter
-                      
           </h1>
           <p className="max-w-2xl mx-auto text-xl md:text-2xl text-brand-text-muted mt-4 font-light">
             Fostering Engineering Excellence and Innovation at RCCIIT
@@ -94,7 +126,7 @@ const HomePage = () => {
             <p className="text-brand-text-muted text-lg leading-relaxed mb-6">
               RCC Institute of Information Technology (RCCIIT) was set up in 1999 by the erstwhile Regional Computer Centre (RCC), Calcutta (in JU) as a unique joint venture of NIC, Ministry of Communication & IT, Govt. of India and Dept. of Higher Education, Govt. of West Bengal. In 2003 the lead role of management of RCCIIT was transferred to the State Govt. from&nbsp;Govt.&nbsp;of&nbsp;India.
             </p>
-            <div className="flex gap-4">
+            <div className="flex gap-4 flex-wrap">
               <span className="bg-brand-primary/20 text-brand-primary px-4 py-2 rounded-full text-sm font-medium">Est. 1999</span>
               <span className="bg-brand-primary/20 text-brand-primary px-4 py-2 rounded-full text-sm font-medium">NAAC Accredited</span>
               <span className="bg-brand-primary/20 text-brand-primary px-4 py-2 rounded-full text-sm font-medium">AICTE Approved</span>
@@ -110,6 +142,7 @@ const HomePage = () => {
               className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out transform ${
                 isLogoActive ? 'opacity-0 scale-110 blur-sm' : 'opacity-100 scale-100 blur-0'
               } group-hover:scale-105`}
+              onError={handleImageError}
             />
             <img 
               src={logoImageUrl} 
@@ -117,6 +150,7 @@ const HomePage = () => {
               className={`absolute inset-0 w-full h-full object-contain p-8 transition-all duration-700 ease-in-out transform ${
                 isLogoActive ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
               } bg-white/90`}
+              onError={handleImageError}
             />
             <div 
               className="absolute top-6 right-6 w-16 h-16 p-1 bg-white/90 backdrop-blur-sm rounded-lg shadow-xl cursor-pointer transition-all duration-500 transform hover:scale-110 hover:rotate-12 z-10"
@@ -126,6 +160,7 @@ const HomePage = () => {
                 src={isLogoActive ? campusImageUrl : logoImageUrl}
                 alt="RCCIIT Thumbnail"
                 className="w-full h-full object-contain transition-all duration-500"
+                onError={handleImageError}
               />
             </div>
           </div>
@@ -145,6 +180,7 @@ const HomePage = () => {
               className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out transform ${
                 isDeptLogoActive ? 'opacity-0 scale-110 blur-sm' : 'opacity-100 scale-100 blur-0'
               } group-hover:scale-105`}
+              onError={handleImageError}
             />
             <img 
               src={deptlogourl} 
@@ -152,6 +188,7 @@ const HomePage = () => {
               className={`absolute inset-0 w-full h-full object-contain p-8 transition-all duration-700 ease-in-out transform ${
                 isDeptLogoActive ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
               } bg-white/90`}
+              onError={handleImageError}
             />
             <div 
               className="absolute top-6 right-6 w-16 h-16 p-1 bg-white/90 backdrop-blur-sm rounded-lg shadow-xl cursor-pointer transition-all duration-500 transform hover:scale-110 hover:rotate-12 z-10"
@@ -161,6 +198,7 @@ const HomePage = () => {
                 src={isDeptLogoActive ? deptpicurl : deptlogourl}
                 alt="Department Thumbnail"
                 className="w-full h-full object-contain transition-all duration-500"
+                onError={handleImageError}
               />
             </div>
           </div>
@@ -280,10 +318,9 @@ const HomePage = () => {
                 </li>
               </ol>
               <div className="text-center mt-6">
-                <a className="inline-block bg-gradient-to-r from-brand-primary to-cyan-600 text-white font-bold py-2 px-6 rounded-lg text-sm hover:from-cyan-600 hover:to-brand-primary transition-all duration-300"
-                >
+                <Link to="/join" className="inline-block bg-gradient-to-r from-brand-primary to-cyan-600 text-white font-bold py-2 px-6 rounded-lg text-sm hover:from-cyan-600 hover:to-brand-primary transition-all duration-300">
                   Before applying become a member by joining us.
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -296,6 +333,12 @@ const HomePage = () => {
           Upcoming Events
         </h2>
         
+        {error && (
+          <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-2xl p-6 mb-8">
+            <p className="text-yellow-200">{error}</p>
+          </div>
+        )}
+        
         {loading ? (
           <div className="bg-brand-secondary/80 backdrop-blur-sm rounded-2xl p-12 text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-primary mx-auto mb-4"></div>
@@ -305,7 +348,7 @@ const HomePage = () => {
           <div className="bg-brand-secondary/80 backdrop-blur-sm rounded-2xl overflow-hidden mb-8">
             {upcomingEvents.map((event, index) => (
               <Link
-                key={event.id}
+                key={event.id || index}
                 to="/events"
                 className="block p-6 border-b border-brand-primary/20 last:border-b-0 hover:bg-brand-primary/10 transition-all duration-300 group"
               >
