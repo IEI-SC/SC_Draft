@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://iei-sc-rcciit.onrender.com/';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://ieisc-rcciit.onrender.com';
 
 const HomePage = () => {
   const [isLogoActive, setIsLogoActive] = useState(false);
