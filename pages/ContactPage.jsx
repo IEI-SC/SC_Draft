@@ -236,11 +236,7 @@ const ContactPage = () => {
                 <div className="space-y-6">
                   {facultyContacts.map((contact, index) => (
                     <div key={index} className="bg-brand-background/50 p-6 rounded-xl border border-slate-600 flex items-center space-x-4">
-                      <img 
-                        src={contact.image} 
-                        alt={contact.name}
-                        className="w-16 h-16 rounded-full object-cover border-2 border-brand-primary"
-                      />
+                      
                       <div className="flex-1">
                         <h4 className="font-semibold text-white text-lg">{contact.name}</h4>
                         <p className="text-brand-primary text-sm mb-2">{contact.role}</p>
@@ -263,11 +259,7 @@ const ContactPage = () => {
                 <div className="space-y-6">
                   {studentContacts.map((contact, index) => (
                     <div key={index} className="bg-brand-background/50 p-6 rounded-xl border border-slate-600 flex items-center space-x-4">
-                      <img 
-                        src={contact.image} 
-                        alt={contact.name}
-                        className="w-16 h-16 rounded-full object-cover border-2 border-brand-primary"
-                      />
+                      
                       <div className="flex-1">
                         <h4 className="font-semibold text-white text-lg">{contact.name}</h4>
                         <p className="text-brand-primary text-sm mb-2">{contact.role}</p>
