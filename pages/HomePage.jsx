@@ -176,40 +176,8 @@ const HomePage = () => {
 
       {/* The IT Department Section */}
       <section className="animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-        <div className="grid md:grid-cols-2 gap-16 items-center">
-          <div 
-            className="relative rounded-2xl shadow-2xl overflow-hidden aspect-video bg-gray-800 group"
-            onMouseLeave={() => setIsDeptLogoActive(false)}
-          >
-            <img 
-              src={deptpicurl} 
-              alt="Department Photo"
-              className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out transform ${
-                isDeptLogoActive ? 'opacity-0 scale-110 blur-sm' : 'opacity-100 scale-100 blur-0'
-              } group-hover:scale-105`}
-              onError={handleImageError}
-            />
-            <img 
-              src={deptlogourl} 
-              alt="Department Logo"
-              className={`absolute inset-0 w-full h-full object-contain p-8 transition-all duration-700 ease-in-out transform ${
-                isDeptLogoActive ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
-              } bg-white/90`}
-              onError={handleImageError}
-            />
-            <div 
-              className="absolute top-6 right-6 w-16 h-16 p-1 bg-white/90 backdrop-blur-sm rounded-lg shadow-xl cursor-pointer transition-all duration-500 transform hover:scale-110 hover:rotate-12 z-10"
-              onMouseEnter={() => setIsDeptLogoActive(true)}
-            >
-              <img 
-                src={isDeptLogoActive ? deptpicurl : deptlogourl}
-                alt="Department Thumbnail"
-                className="w-full h-full object-contain transition-all duration-500"
-                onError={handleImageError}
-              />
-            </div>
-          </div>
-          <div>
+        <div className="grid md:grid-cols gap-16 items-center">
+          
             <h2 className="text-4xl font-bold text-white mb-6 bg-gradient-to-r from-blue-500 to-white bg-clip-text text-transparent">
               The IT Department
             </h2>
