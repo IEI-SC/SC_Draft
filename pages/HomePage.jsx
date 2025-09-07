@@ -5,8 +5,8 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://ieisc-rcciit
 
 // Local fallback images
 const fallbackImages = {
-  logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%231e40af'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial, sans-serif' font-size='24' fill='white'%3EIEI SC Logo%3C/text%3E%3C/svg%3E",
-  dept: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%231e40af'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial, sans-serif' font-size='24' fill='white'%3EIT Department%3C/text%3E%3C/svg%3E",
+  logo: "https://drive.google.com/file/d/19BEUbTfSf2iep12pzF3zJOExD1X2H-Yh/view?usp=drive_link",
+  dept: "https://drive.google.com/file/d/1tuVP4c61Jx6tl2SQU63Exndouf4TsoN4/view?usp=drive_link",
   error: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23374151'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial, sans-serif' font-size='18' fill='white'%3EImage Not Found%3C/text%3E%3C/svg%3E"
 };
 
