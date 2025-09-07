@@ -11,8 +11,8 @@ const HomePage = () => {
 
   const campusImageUrl = "https://rcciit.edu.in/uploads/home_about/1755170374_aboutbg.jpg";
   const logoImageUrl = "https://upload.wikimedia.org/wikipedia/commons/a/ab/Regional_Computer_Centre_Institute_Of_Information_Technology.png";
-  const deptlogourl = "images/deptlogo.jpg";
-  const deptpicurl = "images/deptpic.jpg";
+  const deptlogourl = "https://drive.google.com/file/d/19BEUbTfSf2iep12pzF3zJOExD1X2H-Yh/view?usp=drive_link";
+  const deptpicurl = "https://drive.google.com/file/d/1tuVP4c61Jx6tl2SQU63Exndouf4TsoN4/view?usp=drive_link";
 
   useEffect(() => {
     fetchUpcomingEvents();
