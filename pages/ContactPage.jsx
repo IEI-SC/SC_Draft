@@ -20,7 +20,7 @@ const CalendarIcon = () => (
   </svg>
 );
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://iei-sc-rcciit.onrender.com/';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://ieisc-rcciit.onrender.com';
 
 const ContactPage = () => {
   const [activeTab, setActiveTab] = useState('social');
